@@ -4,7 +4,14 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 function Portal() {
   const url = useBaseUrl('/docs/category/keystone-3-pro/');
-  return <Redirect to={url} />;
+  return (
+    <>
+      <div style={{display: 'none'}}>
+        <a href={url}>Keystone 3 Pro Documentation</a>
+      </div>
+      <Redirect to={url} />
+    </>
+  )
 }
 
 export default Portal;
