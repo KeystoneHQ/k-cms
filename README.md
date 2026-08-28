@@ -12,7 +12,7 @@ This project is a CMS tutorial and blog publishing website based on [Keystone](h
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) 16.x or newer
+- [Node.js](https://nodejs.org/) 24.x
 - [pnpm](https://pnpm.io/) package manager
 
 ## Getting Started
