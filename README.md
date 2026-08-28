@@ -52,6 +52,22 @@ pnpm run start
 
 Open your browser and visit http://localhost:3000.
 
+## Content security validation
+
+Notion content is treated as untrusted build input. The production build runs
+an allowlist-based Markdown/MDX validator after pulling content and before
+Docusaurus compiles it:
+
+```bash
+pnpm run validate:content
+```
+
+The validator scans `docs`, `blog`, and `i18n` and fails closed on raw HTML,
+executable MDX, dangerous or non-public URLs, unknown front matter fields, and
+unapproved embeds. The only supported MDX component is the generated
+`ReactPlayer` Vimeo embed with fixed attributes. Do not bypass this check in a
+deployment workflow.
+
 ## Known Limitations
 
 - Only standard Markdown formatting is supported in Notion content.
