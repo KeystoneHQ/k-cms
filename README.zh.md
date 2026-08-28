@@ -12,7 +12,7 @@
 
 ## 预览环境
 
-- [Node.js](https://nodejs.org/) 16.x 或更高版本
+- [Node.js](https://nodejs.org/) 24.x
 - [pnpm](https://pnpm.io/) 包管理器
 
 ## 开始使用

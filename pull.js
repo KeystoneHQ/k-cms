@@ -41,7 +41,9 @@ const commands = [
 
 (async () => {
   try {
-    await Promise.all(commands.map((command) => runCommand(command)));
+    for (const command of commands) {
+      await runCommand(command);
+    }
     console.log('All commands executed successfully');
   } catch (error) {
     console.error(`Error: ${error.message}`);
