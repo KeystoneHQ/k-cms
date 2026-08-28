@@ -1,0 +1,15 @@
+packages:
+  - '.'
+
+allowBuilds:
+  '@parcel/watcher': true
+  core-js: false
+  core-js-pure: false
+  protobufjs: true
+overrides:
+  '@docusaurus/core': 2.4.3
+  '@docusaurus/mdx-loader': 2.4.3
+  '@docusaurus/module-type-aliases': 2.4.3
+  '@docusaurus/plugin-content-docs': 2.4.3
+  '@docusaurus/theme-common': 2.4.3
+  '@docusaurus/types': 2.4.3
