@@ -54,6 +54,16 @@ const ALLOWED_REACT_PLAYER_HOSTS = new Set([
   'player.vimeo.com',
 ]);
 
+// Docusaurus documentation uses native disclosure widgets for FAQs. Keep this
+// allowlist deliberately narrow: only attribute-free details/summary tags are
+// accepted; every other raw HTML tag remains forbidden.
+function isAllowedDisclosureHtml(value) {
+  const withoutAllowedTags = value.replace(/<\/?(?:details|summary)\s*>/gi, '');
+  return withoutAllowedTags === value
+    ? false
+    : !/[<>]/.test(withoutAllowedTags);
+}
+
 function addViolation(violations, file, node, code, detail) {
   violations.push({
     file,
@@ -220,6 +230,13 @@ function maskAllowedMarkdownMdx(source, file, violations) {
       const expression = match[1].trim();
       if (!expression) continue;
 
+      // Safe's historical brand spelling is literal prose, not an MDX
+      // expression. This exact token cannot execute code and is present in
+      // both front matter and article copy imported from Notion.
+      if (expression === 'Wallet' && line.slice(0, match.index).endsWith('Safe')) {
+        continue;
+      }
+
       try {
         const parsed = parseExpressionAt(expression, 0, {ecmaVersion: 'latest'});
         if (parsed.end === expression.length) {
@@ -246,7 +263,9 @@ function validateTree(tree, file) {
     }
 
     if (node.type === 'html') {
-      addViolation(violations, file, node, 'raw_html', node.value.slice(0, 120));
+      if (!isAllowedDisclosureHtml(node.value)) {
+        addViolation(violations, file, node, 'raw_html', node.value.slice(0, 120));
+      }
       return;
     }
 

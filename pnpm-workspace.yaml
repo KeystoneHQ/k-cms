@@ -13,3 +13,6 @@ overrides:
   '@docusaurus/plugin-content-docs': 2.4.3
   '@docusaurus/theme-common': 2.4.3
   '@docusaurus/types': 2.4.3
+  cheerio: 1.0.0-rc.12
+  cytoscape: 3.32.1
+  webpack: 5.105.4

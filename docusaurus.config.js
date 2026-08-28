@@ -43,6 +43,7 @@ const config = {
       {
         path: "./.env",
         systemvars: true,
+        ignoreStub: true,
       },
     ],
   ],
