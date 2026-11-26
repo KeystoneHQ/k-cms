@@ -1,62 +1,50 @@
-# Keystone CMS 教程和博客网站
+# Keystone 教程站
 
-本项目是一个基于 [Keystone](https://keyst.one/) 的 CMS 教程和博客发布网站，内容在 [Notion](https://www.notion.so/) 中管理。网站使用 [Docusaurus](https://docusaurus.io/) 构建，并部署在 [Vercel](https://vercel.com/) 上。
+[English](README.md)
 
-## 特性
+本项目用 Docusaurus 2 构建 Keystone 教程站。教程在 Notion 中维护，每次生产构建都会重新拉取。英文是默认语言，繁体中文使用站点语言代码 `zh`。
 
-- 使用 Notion 进行内容管理
-- 使用 Docusaurus 进行静态网站生成
-- 支持多语言（参考 [使用方法](https://docusaurus.io/docs/cli#docusaurus-write-translations-sitedir)）
-- 在 Vercel 上轻松部署
-- 在 `archive-docs` 分支上定期备份文档
+## 内容与导航
 
-## 预览环境
+| 教程 | Notion 根页面变量 | 拉取到本地 | 站点入口 |
+| --- | --- | --- | --- |
+| 英文 | `DOCU_NOTION_DOCS_ROOT_PAGE_EN` | `docs/` | `/docs` |
+| 繁体中文 | `DOCU_NOTION_DOCS_ROOT_PAGE_HANT` | `i18n/zh/docusaurus-plugin-content-docs/current/` | `/zh/docs` |
 
-- [Node.js](https://nodejs.org/) 24.x
-- [pnpm](https://pnpm.io/) 包管理器
+首页和文档入口会跳转到当前语言的 Keystone 3 Pro 分类页。Tutorial 侧边栏由 `sidebars.js` 按生成的文档目录自动生成。要调整教程层级，在对应语言的 Notion 目录中修改，然后重新拉取。顶部导航和页脚链接由 `docusaurus.config.js` 配置。
 
-## 开始使用
+导航中的 Korean Tutorial 和页脚的博客均指向外站。本站只构建英文和繁体中文。Docusaurus 的博客插件仍然启用，Notion 同步已移除博客和韩语拉取。原先用于文档归档的 GitHub Actions 工作流已移除。
 
-1. clone 仓库：
+## 本地开发
 
-```bash
-git clone https://github.com/accountlabs-static/k-cms.git
-cd k-cms
-```
+在仓库根目录使用 Node.js 24.x 和 pnpm 11.24.0。首次配置时运行：
 
-2. 安装依赖：
-
-```bash
-pnpm install
-```
-
-3. 设置环境变量：
-
-```bash
-# 复制 .env.example 文件到 .env 并填写必要的值
+```sh
+pnpm install --frozen-lockfile
 cp .env.example .env
-# 然后使用你喜欢的文本编辑器编辑 .env 文件
 ```
 
-4. 从 Notion 拉取内容：
+在 `.env` 或当前进程环境中设置以下变量。拉取脚本默认读取 `.env`；仅填写 `.env.local` 不会被该脚本自动加载。
 
-```bash
+| 变量 | 值的来源与用途 |
+| --- | --- |
+| `DOCU_NOTION_INTEGRATION_TOKEN` | Notion 集成的访问令牌。为集成授予两个根页面及其引用内容的读取权限。令牌保存在本地环境或部署平台中。 |
+| `DOCU_NOTION_DOCS_ROOT_PAGE_EN` | 从英文教程根页面的 Notion 链接复制页面 ID。 |
+| `DOCU_NOTION_DOCS_ROOT_PAGE_HANT` | 从繁体中文教程根页面的 Notion 链接复制页面 ID。 |
+| `AVAILABLE_STATUS` | 按数据库文章的 Notion 状态筛选。示例使用 `Publish`。若预览环境还需包含待审核文章，可填 `Publish,Ready For Review`。 |
+
+```sh
 pnpm run pull
-```
-
-5. 启动开发服务器：
-
-```bash
+pnpm run validate:content
 pnpm run start
 ```
 
-在浏览器中访问 http://localhost:3000。
+打开 `http://localhost:3000` 预览英文；预览中文使用 `pnpm run start --locale zh`。开发服务器读取本地内容。Notion 内容变更后需要重新拉取并校验。Git 忽略生成的教程正文，直接编辑本地副本可能在下次拉取时丢失。
 
-## 已知限制
+## 生产构建与 Vercel 部署
 
-- 只支持 Notion 内容中的标准 Markdown 格式。
-- 支持特定的嵌入，例如 YouTube 和 Twitter。其他嵌入可能无法正确渲染。
-- 图片应直接从你的本地设备上传到 Notion。粘贴来自外部来源的图片链接可能会导致错误。
-- 不支持在 Notion 中为子页面（位于子目录内的文章）自定义 slug。
+Vercel 的构建命令应设为 `pnpm run build`，输出目录为 `build`。在需要构建的部署环境中设置上表四个变量。文档页底部的评分组件使用 Firestore，相关 Firebase Web 应用变量见 `src/plugins/firebase.ts`。
 
-[English version](README.md)
+1. **拉取。** `pull.js` 先拉取英文，成功后再拉取繁体中文。任一拉取命令失败，构建即停止。
+2. **校验。** `pnpm run validate:content` 检查 `docs/`、`blog/`、`i18n/` 中的 Markdown 和 MDX，包括 front matter、链接与嵌入内容。普通 Markdown 中允许无属性的 `<details>`、`<summary>` 和符合指定格式的 Vimeo 播放器。YouTube 和 Twitter 转换生成的组件不在允许列表内。校验失败时，根据输出的文件、行号和规则修改 Notion 原文。
+3. **生成。** `docusaurus build` 编译两种语言并写入 `build/`。运行 `pnpm run serve` 可在本地预览这份生产产物。
