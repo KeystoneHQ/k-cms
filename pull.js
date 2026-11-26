@@ -33,7 +33,6 @@ function runCommand(command) {
 const commands = [
   'dotenv -- cross-var docu-notion -n "%DOCU_NOTION_INTEGRATION_TOKEN%" -r "%DOCU_NOTION_DOCS_ROOT_PAGE_EN%" -t "%AVAILABLE_STATUS%"',
   'dotenv -- cross-var docu-notion -n "%DOCU_NOTION_INTEGRATION_TOKEN%" -r "%DOCU_NOTION_DOCS_ROOT_PAGE_HANT%" -m i18n/zh/docusaurus-plugin-content-docs/current -t "%AVAILABLE_STATUS%"',
-  'dotenv -- cross-var docu-notion -n "%DOCU_NOTION_INTEGRATION_TOKEN%" -r "%DOCU_NOTION_DOCS_ROOT_PAGE_KO%" -m i18n/ko/docusaurus-plugin-content-docs/current -t "%AVAILABLE_STATUS%"',
 ];
 
 (async () => {
