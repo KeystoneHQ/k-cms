@@ -11,7 +11,7 @@ const config = {
   favicon: 'img/favicon.svg',
 
   // Set the production url of your site here
-  url: 'https://guide.keyst.one/',
+  url: 'https://k-cms.vercel.app/',
   baseUrl: '/',
   organizationName: 'KeystoneHQ',
   projectName: 'Keystone support',
