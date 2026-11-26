@@ -43,7 +43,7 @@ pnpm run start
 
 ## 生产构建与 Vercel 部署
 
-Vercel 的构建命令应设为 `pnpm run build`，输出目录为 `build`。在需要构建的部署环境中设置上表四个变量。文档页底部的评分组件使用 Firestore，相关 Firebase Web 应用变量见 `src/plugins/firebase.ts`。
+Vercel 的构建命令应设为 `pnpm run build`，输出目录为 `build`。在需要构建的部署环境中设置上表四个变量。
 
 1. **拉取。** `pull.js` 先拉取英文，成功后再拉取繁体中文。任一拉取命令失败，构建即停止。
 2. **校验。** `pnpm run validate:content` 检查 `docs/`、`blog/`、`i18n/` 中的 Markdown 和 MDX，包括 front matter、链接与嵌入内容。普通 Markdown 中允许无属性的 `<details>`、`<summary>` 和符合指定格式的 Vimeo 播放器。YouTube 和 Twitter 转换生成的组件不在允许列表内。校验失败时，根据输出的文件、行号和规则修改 Notion 原文。

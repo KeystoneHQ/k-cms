@@ -269,29 +269,5 @@
   "theme.tags.tagsPageTitle": {
     "message": "Tags",
     "description": "The title of the tag list page"
-  },
-  "docs.footer.ratings.title": {
-    "message": "Was this page helpful?",
-    "description": "docs footer rating title"
-  },
-  "docs.footer.ratings.bad.question": {
-    "message": "What are the reasons for your dissatisfaction?",
-    "description": "docs footer rating bad question"
-  },
-  "docs.footer.ratings.bad.selection.outdated": {
-    "message": "The content is outdated",
-    "description": "docs footer rating bad reason outdated"
-  },
-  "docs.footer.ratings.bad.selection.cannotAccording": {
-    "message": "Cannot proceed according to the process",
-    "description": "docs footer rating bad reason cannotAccording"
-  },
-  "docs.footer.ratings.bad.selection.other": {
-    "message": "Other",
-    "description": "docs footer rating bad reason other"
-  },
-  "docs.footer.ratings.thankyou": {
-    "message": "Thanks for letting us know!",
-    "description": "docs footer rating thank you"
   }
 }

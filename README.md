@@ -43,7 +43,7 @@ Open `http://localhost:3000` for English. Use `pnpm run start --locale zh` for C
 
 ## Production build and Vercel deployment
 
-For Vercel, use `pnpm run build` as the build command and `build` as the output directory. Set the four variables above in each deployment environment that builds the site. The feedback widget in the tutorial footer writes ratings to Firestore. Its Firebase web app variables are listed in `src/plugins/firebase.ts`.
+For Vercel, use `pnpm run build` as the build command and `build` as the output directory. Set the four variables above in each deployment environment that builds the site.
 
 1. **Pull.** `pull.js` pulls English, then Traditional Chinese. If either command fails, the build stops.
 2. **Validate.** `pnpm run validate:content` checks Markdown and MDX under `docs/`, `blog/`, and `i18n/`, including front matter, links, and embeds. Markdown permits attribute-free `<details>` and `<summary>` tags and the prescribed Vimeo player markup. Generated YouTube and Twitter components are outside the allowlist. If validation fails, use the reported file, line, and rule to correct the source in Notion.

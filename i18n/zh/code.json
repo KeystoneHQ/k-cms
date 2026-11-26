@@ -269,29 +269,5 @@
   "theme.tags.tagsPageTitle": {
     "message": "标签",
     "description": "The title of the tag list page"
-  },
-  "docs.footer.ratings.title": {
-    "message": "这个页面有帮助吗？",
-    "description": "docs footer rating title"
-  },
-  "docs.footer.ratings.bad.question": {
-    "message": "您不满意的原因是什么？",
-    "description": "docs footer rating bad question"
-  },
-  "docs.footer.ratings.bad.selection.outdated": {
-    "message": "内容过时了",
-    "description": "docs footer rating bad reason outdated"
-  },
-  "docs.footer.ratings.bad.selection.cannotAccording": {
-    "message": "按照流程走不通",
-    "description": "docs footer rating bad reason cannotAccording"
-  },
-  "docs.footer.ratings.bad.selection.other": {
-    "message": "其他",
-    "description": "docs footer rating bad reason other"
-  },
-  "docs.footer.ratings.thankyou": {
-    "message": "谢谢您告诉我们！",
-    "description": "docs footer rating thank you"
   }
 }
